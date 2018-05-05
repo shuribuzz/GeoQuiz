@@ -24,18 +24,18 @@ public class MainActivity extends AppCompatActivity {
     private int mCurrentIndex = 0;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
-            new TrueFalse(R.string.question_oceans, true),
-            new TrueFalse(R.string.question_mideast, false),
-            new TrueFalse(R.string.question_africa, false),
-            new TrueFalse(R.string.question_americas, true),
-            new TrueFalse(R.string.question_asia, true),
+            new TrueFalse(R.string.question_oceans, true, false),
+            new TrueFalse(R.string.question_mideast, false, false),
+            new TrueFalse(R.string.question_africa, false, false),
+            new TrueFalse(R.string.question_americas, true, false),
+            new TrueFalse(R.string.question_asia, true, false),
     };
 
     private void checkAnswer(boolean userPressedTrue) {
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
         int messageResId = 0;
 
-        if (mIsCheater) {
+        if (mQuestionBank[mCurrentIndex].isCheat()) {
             messageResId = R.string.judgment_toast;
         } else {
             if (userPressedTrue == answerIsTrue) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            mIsCheater = savedInstanceState.getBoolean(KEY_IS_CHEAT, false);
+            mQuestionBank[mCurrentIndex].setIsCheat(savedInstanceState.getBoolean(KEY_IS_CHEAT, false));
         }
         setContentView(R.layout.activity_main);
 
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         if (dataCheat == null) {
             return;
         }
-        mIsCheater = dataCheat.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+        mQuestionBank[mCurrentIndex].setIsCheat(dataCheat.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false));
     }
 
     @Override
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
-        savedInstanceState.putBoolean(KEY_IS_CHEAT, mIsCheater);
+        savedInstanceState.putBoolean(KEY_IS_CHEAT, mQuestionBank[mCurrentIndex].isCheat());
     }
 
     @Override

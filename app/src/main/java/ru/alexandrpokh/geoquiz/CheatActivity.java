@@ -13,27 +13,26 @@ public class CheatActivity extends AppCompatActivity {
     public static final String EXTRA_ANSWER_SHOWN = "ru.alexandrpokh.geoquiz.answer_shown";
     private  static final String KEY_IS_CHEAT = "cheat";
     private boolean mAnswerIsTrue;
-    private boolean mIsCheater=false;
+    private boolean mIsCheater;
     private TextView mAnswerTextView;
     private Button mShowAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (savedInstanceState != null) {
             System.out.println(mIsCheater);
             mIsCheater = savedInstanceState.getBoolean(KEY_IS_CHEAT, false);
         }
-        setContentView(R.layout.activity_cheat);
-        
-        setAnswerShownResult(mIsCheater);
 
-        mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
+        setContentView(R.layout.activity_cheat);
 
         mAnswerTextView = (TextView)findViewById(R.id.answerTextView);
         mShowAnswer = (Button)findViewById(R.id.showAnswerButton);
 
-        setAnswerShownResult(false);
+        mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
+        setAnswerShownResult(mIsCheater);
 
         mShowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override

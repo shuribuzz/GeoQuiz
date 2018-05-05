@@ -2,11 +2,12 @@ package ru.alexandrpokh.geoquiz;
 
 public class TrueFalse {
     private int mQuestion;
-    private boolean mTrueQuestion;
+    private boolean mTrueQuestion, mIsCheat;
 
-    public TrueFalse(int question, boolean trueQuestion) {
+    public TrueFalse(int question, boolean trueQuestion, boolean isCheat) {
         mQuestion = question;
         mTrueQuestion = trueQuestion;
+        mIsCheat = isCheat;
     }
 
     public int getQuestion() {
@@ -23,5 +24,13 @@ public class TrueFalse {
 
     public void setTrueQuestion(boolean trueQuestion) {
         mTrueQuestion = trueQuestion;
+    }
+
+    public boolean isCheat() {
+        return mIsCheat;
+    }
+
+    public void setIsCheat(boolean isCheat) {
+        mIsCheat = isCheat;
     }
 }
